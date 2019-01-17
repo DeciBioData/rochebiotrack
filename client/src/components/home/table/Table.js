@@ -7,12 +7,16 @@ import LoadingSpinner from "../../others/LoadingSpinner"
 
 class Table extends Component {
 
-	componentWillMount() {
+	componentDidMount() {
 		this.props.fetchData()
 	}
 
 	render() {
 		const table = new Set(this.props.columns)
+
+		let endEntry = this.props.currentPage * this.props.numberOfShowPerPage
+  	let startEntry = endEntry - this.props.numberOfShowPerPage
+  	let partialData = this.props.companies.slice(startEntry, endEntry)
 
 		if(!this.props.onLoad) return <div className="spinner"><LoadingSpinner /></div>
 		return(
@@ -41,7 +45,7 @@ class Table extends Component {
 				    </thead>
 				    <tbody>
 				    	{
-				    		this.props.companies.map((data, index) => {
+				    		partialData.map((data, index) => {
 				    			return (
 							    	<tr key={index}>
 							    		{table.has("Rank") ? <th className="text-left">{data.rank}</th> : null}
@@ -76,7 +80,11 @@ class Table extends Component {
 const mapStateToProps = state => ({
 	companies: state.data.companies,
 	onLoad: state.data.onLoad,
-	columns: state.filter.columns
+	columns: state.filter.columns,
+	numberOfShowPerPage: state.pagination.numberOfShowPerPage,
+	currentPage: state.pagination.currentPage,
+	lastPage: state.pagination.lastPage
 })
 
 export default connect(mapStateToProps, { fetchData })(Table)
+
