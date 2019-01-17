@@ -1,0 +1,75 @@
+.company-img {
+	width: 100px;
+	float: right;
+}
+
+.description-header {
+	margin-top: 0;
+	margin-bottom: 3%;
+}
+
+.webLink{
+	margin-right: 5%;
+}
+
+.webLink i{
+	font-size: 28px;
+}
+
+.sideMenu {
+	padding-top: 5% ;
+	padding-left: 5% ;
+	padding-right: 5% ;
+	padding-bottom: 3% ;
+}
+
+.sideMenu h6{
+	font-weight: bold;
+	color: #888;
+	font-size: 16px;
+}
+
+.list-group {
+	border-radius: 0 !important;
+}
+
+.list-group-item {
+	color: #888 !important;
+}
+
+.list-group-item:hover {
+	background: #f3f3f3;
+	border-top: 1px solid grey !important;
+	border-bottom: 1px solid grey !important;
+	color: #0066CC !important;
+}
+
+.back-btns {
+	text-align: center;
+	width: 300px;
+}
+
+@media only screen and (max-width: 1350px) {
+  .back-btns {
+  	width: 100%;
+  }
+}
+
+.mainInfo-section {
+	margin-top: 1%;
+	height: 600px;
+	overflow-y: auto;
+	margin-bottom: 1%;	
+}
+
+.categoryTags-section {
+	margin-bottom: 5%;
+	font-size: 12px;
+}
+
+
+
+
+
+
+
