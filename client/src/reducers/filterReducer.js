@@ -1,22 +1,22 @@
 import { 
-	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, CLEAR_DROPDOWNOPTIONS,
-	FILL_COLUMN
+	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, 
+	CLEAR_DROPDOWNOPTIONS, FILL_COLUMN, FILTER_SLIDERS,
 } from '../actions/types'
 
 const initialState = {
 	filters: {
-    name: "",
-    description: "",
-    employeeCount: [],
-    category: [],
-    country: [],
-    status: [],
-    region: [],
-    totalFunding: [0, 6000000000],
-    rounds: [0, 30],
-    reportedValuation: [0, 150000000000],
-    yearFounded: [2000, 2018],
-    publicationCount: [0, 5000]
+	    name: "",
+	    description: "",
+	    employeeCount: [],
+	    category: [],
+	    country: [],
+	    status: [],
+	    region: [],
+	    totalFunding: [0, 6000000000],
+	    rounds: [0, 30],
+	    reportedValuation: [0, 150000000000],
+	    yearFounded: [2000, 2018],
+	    publicationCount: [0, 5000]
 	},
   columns: [
     "Rank","Company Name", "Country","Founded","Last Funding",
@@ -56,22 +56,22 @@ export default function(state = initialState, action) {
 		case FILTER_DROPDOWNOPTIONS:
 			switch(action.payload.type) {
 				case 'column':
-			    let typeIndex = state.columns.indexOf(action.payload.item)
-			    if(typeIndex == -1) state.columns.push(action.payload.item)
-			    else {
-			      state.columns.splice(typeIndex, 1)
-			    }
-			    return {
-			    	...state,
-			    	columns: state.columns
-			    }
+				    let typeIndex = state.columns.indexOf(action.payload.item)
+				    if(typeIndex == -1) state.columns.push(action.payload.item)
+				    else {
+				      state.columns.splice(typeIndex, 1)
+				    }
+				    return {
+				    	...state,
+				    	columns: state.columns
+				    }
 					break
 				default:
-			    typeIndex = state.filters[action.payload.type].indexOf(action.payload.item)
-			    if(typeIndex == -1) state.filters[action.payload.type].push(action.payload.item)
-			    else {
-			      state.filters[action.payload.type].splice(typeIndex, 1)
-			    }
+				    typeIndex = state.filters[action.payload.type].indexOf(action.payload.item)
+				    if(typeIndex == -1) state.filters[action.payload.type].push(action.payload.item)
+				    else {
+				      state.filters[action.payload.type].splice(typeIndex, 1)
+				    }
 					return {
 						...state,
 						filters: state.filters
@@ -102,11 +102,36 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				columns: [
-	        "(All)", "Rank","Company Name","Description","Founded","Employee Count","Last Funding","Category","Country",
-	        "Region","Status","Rounds","Total Funding","Reported Valuation","Publication Count","Investor Count", "Rank Score"
-    		]
+			        "(All)", "Rank","Company Name","Description","Founded","Employee Count","Last Funding","Category","Country",
+			        "Region","Status","Rounds","Total Funding","Reported Valuation","Publication Count","Investor Count", "Rank Score"
+		    	]
 			}
 			break
+
+		case FILTER_SLIDERS:
+			switch(action.payload.type) {
+				case "TotalFunding":
+					state.filters.totalFunding = action.payload.newRange
+					break
+				case "Rounds":
+					state.filters.rounds = action.payload.newRange
+					break
+				case "ReportedValuation":
+					state.filters.reportedValuation = action.payload.newRange
+					break
+				case "YearFounded":
+					state.filters.yearFounded = action.payload.newRange
+					break
+				case "Publication":
+					state.filters.publicationCount = action.payload.newRange
+					break
+			}
+			return {
+				...state,
+				filters: state.filters
+			}
+			break
+
 		default:
 			return state
 			break

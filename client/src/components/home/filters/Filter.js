@@ -4,9 +4,11 @@ import {
 	filterName, filterDescription, filterDropdownOptions, clearDropdownOptions, fillColumn
 } from "../../../actions/filterActions"
 import { updateData } from "../../../actions/dataActions"
+import { formatDollar } from "../../../actions/otherActions"
 
 import FilterInstruction from "./FilterInstruction"
 import DropdownOptions from "./DropdownOptions"
+import Slider from "./Slider"
 
 class Filter extends Component {
 
@@ -62,7 +64,7 @@ class Filter extends Component {
 	}
 
 	render() {
-		const { processedCompanies } = this.props
+		const { processedCompanies, filters } = this.props
 		return (
 			<div className="side-nav with-shadow-light">
 				<div className="company-count">
@@ -111,6 +113,33 @@ class Filter extends Component {
 					<DropdownOptions 
 						name="Counts" type="employeeCount" list={this.employeeCountList} updateData={this.updateData.bind(this)}
 						handleDropdownOptions={this.handleDropdownOptions.bind(this)} clearDropdownOptions={this.clearDropdownOptions.bind(this)}/>
+				</div>
+
+				<div className="filter-slider">
+					<FilterInstruction name="Total Funding" type="TotalFunding" result={`( ${formatDollar(filters.totalFunding[0])} - ${formatDollar(filters.totalFunding[1])} )`}
+						content='Filter down companies by selecting their minimum and maximum funding ($USD)'/>
+					<Slider type="TotalFunding" value={filters.totalFunding} range={{min: 0, max: 6000000000}}/>
+				</div>
+				<div className="filter-slider">
+					<FilterInstruction name="Rounds" type="Rounds" result={`( ${Math.round(filters.rounds[0])} - ${Math.round(filters.rounds[1])} )`}
+						content='Filter down companies by selecting their minimum and maximum count of funding rounds'/>
+					<Slider type="Rounds" value={filters.rounds} range={{min: 0, max: 30}}/>
+				</div>
+				<div className="filter-slider">
+					<FilterInstruction name="Reported Valuation" type="ReportedValuation" result={`( ${formatDollar(filters.reportedValuation[0])} - ${formatDollar(filters.reportedValuation[1])} )`}
+						content='Filter down companies by selecting their minimum and maximum valuation ($USD)'/>
+					<Slider type="ReportedValuation" value={filters.reportedValuation} range={{min: 0, max: 150000000000}}/>
+				</div>
+				<div className="filter-slider">
+					<FilterInstruction name="Year Founded" type="YearFounded" 
+						result={`( ${filters.yearFounded[0] == 0 ? filters.yearFounded[1] == 2000 ? 0 : 2000 : filters.yearFounded[0]} - ${filters.yearFounded[1]} )`}
+						content='Filter down companies by selecting their minimum and maximum founding year'/>
+					<Slider type="YearFounded" value={filters.yearFounded} range={{min: 2000, max: 2018}}/>
+				</div>
+				<div className="filter-slider">
+					<FilterInstruction name="Publication Count" type="Publication" result={`( ${Math.round(filters.publicationCount[0])} - ${Math.round(filters.publicationCount[1])} )`}
+						content='Filter down companies by selecting their minimum and maximum publication count'/>
+					<Slider type="Publication" value={filters.publicationCount} range={{min: 0, max: 5000}}/>
 				</div>
 			</div>
 		)

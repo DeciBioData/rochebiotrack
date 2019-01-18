@@ -1,6 +1,6 @@
 import { 
-	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, CLEAR_DROPDOWNOPTIONS,
- 	FILL_COLUMN
+	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, 
+	CLEAR_DROPDOWNOPTIONS, FILL_COLUMN, FILTER_SLIDERS
 } from './types'
 
 export const filterName = (name) => dispatch => {
@@ -40,3 +40,31 @@ export const fillColumn = () => dispatch => {
 		payload: null
 	})
 }
+
+export const filterSliders = (type, newRange) => dispatch => {
+	dispatch({
+		type: FILTER_SLIDERS,
+		payload: {
+			type,
+			newRange
+		}
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
