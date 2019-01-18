@@ -82,6 +82,36 @@ class Filter extends Component {
 						name="Columns" type="column" list={this.tableList.split(',')} updateData={this.updateData.bind(this)} fillColumn={this.fillColumn.bind(this)}
 						handleDropdownOptions={this.handleDropdownOptions.bind(this)} clearDropdownOptions={this.clearDropdownOptions.bind(this)}/>
 				</div>
+				<div className="category-filter">
+					<FilterInstruction name="Category Tags" type="Tags" content="Filter down companies by selecting one or more category tags. Use the search bar to look up relevant tags"/>
+					<DropdownOptions 
+						name="Tags" type="category" list={this.categoryList.split(',')} updateData={this.updateData.bind(this)}
+						handleDropdownOptions={this.handleDropdownOptions.bind(this)} clearDropdownOptions={this.clearDropdownOptions.bind(this)}/>
+				</div>
+				<div className="category-filter">
+					<FilterInstruction name="Company Status" type="Status" content='Filter down companies by selecting their status. These are mutually exclusive categories, i.e an operating company will not have an "ipo" or and "acquired" tag'/>
+					<DropdownOptions 
+						name="Status" type="status" list={this.statusList.split(',')} updateData={this.updateData.bind(this)}
+						handleDropdownOptions={this.handleDropdownOptions.bind(this)} clearDropdownOptions={this.clearDropdownOptions.bind(this)}/>
+				</div>
+				<div className="category-filter">
+					<FilterInstruction name="Region" type="Region" content='Filter down companies by region'/>
+					<DropdownOptions 
+						name="Region" type="region" list={this.regionList.split(',')} updateData={this.updateData.bind(this)}
+						handleDropdownOptions={this.handleDropdownOptions.bind(this)} clearDropdownOptions={this.clearDropdownOptions.bind(this)}/>
+				</div>
+				<div className="category-filter">
+					<FilterInstruction name="Country" type="Country" content='Filter down companies by country'/>
+					<DropdownOptions 
+						name="Country" type="country" list={this.countryList.split(',')} updateData={this.updateData.bind(this)}
+						handleDropdownOptions={this.handleDropdownOptions.bind(this)} clearDropdownOptions={this.clearDropdownOptions.bind(this)}/>
+				</div>
+				<div className="category-filter">
+					<FilterInstruction name="Employee Count" type="Employee" content='Filter down companies by employee count'/>
+					<DropdownOptions 
+						name="Counts" type="employeeCount" list={this.employeeCountList} updateData={this.updateData.bind(this)}
+						handleDropdownOptions={this.handleDropdownOptions.bind(this)} clearDropdownOptions={this.clearDropdownOptions.bind(this)}/>
+				</div>
 			</div>
 		)
 	}

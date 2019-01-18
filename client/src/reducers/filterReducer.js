@@ -67,6 +67,11 @@ export default function(state = initialState, action) {
 			    }
 					break
 				default:
+			    typeIndex = state.filters[action.payload.type].indexOf(action.payload.item)
+			    if(typeIndex == -1) state.filters[action.payload.type].push(action.payload.item)
+			    else {
+			      state.filters[action.payload.type].splice(typeIndex, 1)
+			    }
 					return {
 						...state,
 						filters: state.filters
@@ -76,7 +81,7 @@ export default function(state = initialState, action) {
 			break
 
 		case CLEAR_DROPDOWNOPTIONS:
-			switch(action.payload.type) {
+			switch(action.payload) {
 				case 'column':
 			    return {
 			    	...state,
@@ -84,6 +89,7 @@ export default function(state = initialState, action) {
 			    }
 					break
 				default:
+					state.filters[action.payload] = []
 					return {
 						...state,
 						filters: state.filters

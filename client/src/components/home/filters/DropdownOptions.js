@@ -34,7 +34,7 @@ class DropdownOptions extends Component {
 
 	handleItem(type) {
 		if(type == '(All)') { 
-			if(this.type != 'column') this.clearItem(type)
+			if(this.type != 'column') this.clearItem()
 			else {
 				let input = document.querySelectorAll('.columnCheckbox')[0]
 				if(!input.checked) this.clearItem()
