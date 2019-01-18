@@ -1,6 +1,6 @@
 import { 
-	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, 
-	CLEAR_DROPDOWNOPTIONS, FILL_COLUMN, FILTER_SLIDERS, CHANGE_RANK_WEIGHTS
+	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, CLEAR_ALL,
+	CLEAR_DROPDOWNOPTIONS, CLEAR_SLIDERS, FILL_COLUMN, FILTER_SLIDERS, CHANGE_RANK_WEIGHTS
 } from './types'
 
 export const filterName = (name) => dispatch => {
@@ -31,6 +31,20 @@ export const clearDropdownOptions = (type) => dispatch => {
 	dispatch({
 		type: CLEAR_DROPDOWNOPTIONS,
 		payload: type
+	})
+}
+
+export const clearSliders = (type) => dispatch => {
+	dispatch({
+		type: CLEAR_SLIDERS,
+		payload: type
+	})
+}
+
+export const clearAll = () => dispatch => {
+	dispatch({
+		type: CLEAR_ALL,
+		payload: null
 	})
 }
 

@@ -1,6 +1,6 @@
 import { 
-	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, 
-	CLEAR_DROPDOWNOPTIONS, FILL_COLUMN, FILTER_SLIDERS, CHANGE_RANK_WEIGHTS
+	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, CLEAR_ALL,
+	CLEAR_DROPDOWNOPTIONS, CLEAR_SLIDERS, FILL_COLUMN, FILTER_SLIDERS, CHANGE_RANK_WEIGHTS
 } from '../actions/types'
 
 const initialState = {
@@ -95,6 +95,39 @@ export default function(state = initialState, action) {
 						filters: state.filters
 					}
 					break
+			}
+			break
+
+		case CLEAR_SLIDERS:
+			let defaultRange = {
+			    totalFunding: [0, 6000000000],
+			    rounds: [0, 30],
+			    reportedValuation: [0, 150000000000],
+			    yearFounded: [2000, 2018],
+			    publicationCount: [0, 5000]				
+			}			
+			state.filters[action.payload] = defaultRange[action.payload]
+			return {
+				...state,
+				filters: state.filters
+			}
+			break
+
+		case CLEAR_ALL:
+			let { filters } = state
+			filters.employeeCount = []
+			filters.category = []
+			filters.status = []
+			filters.country = []
+			filters.region = []
+			filters.totalFunding = [0, 6000000000]
+			filters.rounds = [0, 30]
+			filters.reportedValuation = [0, 150000000000]
+			filters.yearFounded = [2000, 2018]
+			filters.publicationCount = [0, 5000]
+			return {
+				...state,
+				filters: state.filters
 			}
 			break
 
