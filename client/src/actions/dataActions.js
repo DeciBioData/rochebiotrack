@@ -1,4 +1,4 @@
-import { FETCH_DATA } from './types'
+import { FETCH_DATA, UPDATE_DATA } from './types'
 
 import companies from '../companies.json'
 
@@ -40,7 +40,8 @@ export const fetchData = () => dispatch => {
 		teamRankPercentile: dataSet["Avg- Team Rank - Percentile"],
 		employeeCountPercentile: dataSet["Avg- Employee Count - Percentile"],
 		publicationCountPercentile: dataSet["Publication Count- Percentile"],
-		uuid: dataSet["UUID"]
+		uuid: dataSet["UUID"],
+		score: 0
 	})) || []
 	
 	dispatch({
@@ -48,3 +49,67 @@ export const fetchData = () => dispatch => {
 		payload: companyData
 	})
 }
+
+export const updateData = (companies, filters) => dispatch => {
+
+    const matchPrefix = (prefix, str) => {
+      if(!prefix.match(/^[a-zA-Z]+$/) && !prefix.match(/^[0-9]+$/)) return false
+      prefix = prefix.toLowerCase()
+      str = str.toLowerCase()
+
+      let search = prefix.split(" ")
+
+      for (let i = 0, len = search.length; i < len; i++) {
+        let regex = new RegExp(search[i], 'i')
+        if (regex.test(str) === false) {
+          return false
+        }
+      }
+
+      return true
+    }
+
+    const includeInArray = (list1, list2) => {
+      let set = new Set(list1)
+      for(let i = 0; i < list2.length; i++) {
+        if(set.has(list2[i])) return true
+      }
+      return false
+    }
+
+	let processedData = []
+    for(let i = 0; i < companies.length; i++) {
+      let data = companies[i]
+
+      if(filters.yearFounded[0] == 2000) { filters.yearFounded[0] = 0 }
+      if(filters.name != "" && !matchPrefix(filters.name, data.name)) continue
+      if(filters.description != "" && !matchPrefix(filters.description, data.description)) continue
+      if(filters.employeeCount.length != 0 && filters.employeeCount.indexOf(data.employeeCount) == -1) continue
+      if(filters.category.length != 0 && !includeInArray(filters.category, data.categories.split(','))) continue
+      if(filters.country.length != 0 && !includeInArray(filters.country, data.country.split(','))) continue
+      if(filters.status.length != 0 && !includeInArray(filters.status, data.status.split(','))) continue
+      if(filters.region.length != 0 && !includeInArray(filters.region, data.region.split(','))) continue
+      if(filters.totalFunding[0] > parseInt(data.totalFunding) || filters.totalFunding[1] < parseInt(data.totalFunding)) continue
+      if(filters.rounds[0] > parseInt(data.rounds) || filters.rounds[1] < parseInt(data.rounds)) continue
+      if(filters.reportedValuation[0] > parseInt(data.reportedValuation) || filters.reportedValuation[1] < parseInt(data.reportedValuation)) continue
+      if(filters.yearFounded[0] > parseInt(data.yearOfFound) || filters.yearFounded[1] < parseInt(data.yearOfFound)) continue
+      if(filters.publicationCount[0] > parseInt(data.publicationCount) || filters.publicationCount[1] < parseInt(data.publicationCount)) continue
+
+      processedData.push(data)
+    }
+
+	dispatch({
+		type: UPDATE_DATA,
+		payload: processedData
+	})
+}
+
+
+
+
+
+
+
+
+
+

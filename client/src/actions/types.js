@@ -1,9 +1,13 @@
 //Data Actions
 export const FETCH_DATA = 'FETCH_DATA'
+export const UPDATE_DATA = 'UPDATE_DATA'
 
 //Filter Actions
-export const ADD_COLUMN = 'ADD_COLUMN'
-export const DEL_COLUMN = 'DEL_COLUMN'
+export const FILTER_NAME = 'FILTER_NAME'
+export const FILTER_DESCRIPTION = 'FILTER_DESCRIPTION'
+export const FILTER_DROPDOWNOPTIONS = 'FILTER_DROPDOWNOPTIONS'
+export const CLEAR_DROPDOWNOPTIONS = 'CLEAR_DROPDOWNOPTIONS'
+export const FILL_COLUMN = 'FILL_COLUMN'
 
 //Page Actions
 export const CHANGE_PAGE_NUMBER = 'CHANGE_PAGE_NUMBER'
