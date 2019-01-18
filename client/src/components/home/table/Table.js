@@ -14,9 +14,12 @@ class Table extends Component {
 	render() {
 		const table = new Set(this.props.columns)
 
+		let sortedData = this.props.companies.slice()
+		sortedData.forEach((data, index) => data.rank = index + 1)
+
 		let endEntry = this.props.currentPage * this.props.numberOfShowPerPage
   		let startEntry = endEntry - this.props.numberOfShowPerPage
-  		let partialData = this.props.companies.slice(startEntry, endEntry)
+  		let partialData = sortedData.slice(startEntry, endEntry)
 
 		if(!this.props.onLoad) return <div className="spinner"><LoadingSpinner /></div>
 			

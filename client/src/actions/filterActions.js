@@ -1,6 +1,6 @@
 import { 
 	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, 
-	CLEAR_DROPDOWNOPTIONS, FILL_COLUMN, FILTER_SLIDERS
+	CLEAR_DROPDOWNOPTIONS, FILL_COLUMN, FILTER_SLIDERS, CHANGE_RANK_WEIGHTS
 } from './types'
 
 export const filterName = (name) => dispatch => {
@@ -47,6 +47,16 @@ export const filterSliders = (type, newRange) => dispatch => {
 		payload: {
 			type,
 			newRange
+		}
+	})
+}
+
+export const changeRankWeights = (type, value) => dispatch => {
+	dispatch({
+		type: CHANGE_RANK_WEIGHTS,
+		payload: {
+			type,
+			value
 		}
 	})
 }

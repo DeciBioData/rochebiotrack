@@ -1,6 +1,7 @@
 //Data Actions
 export const FETCH_DATA = 'FETCH_DATA'
 export const UPDATE_DATA = 'UPDATE_DATA'
+export const SORT_DATA = 'SORT_DATA'
 
 //Filter Actions
 export const FILTER_NAME = 'FILTER_NAME'
@@ -9,6 +10,7 @@ export const FILTER_DROPDOWNOPTIONS = 'FILTER_DROPDOWNOPTIONS'
 export const CLEAR_DROPDOWNOPTIONS = 'CLEAR_DROPDOWNOPTIONS'
 export const FILL_COLUMN = 'FILL_COLUMN'
 export const FILTER_SLIDERS = 'FILTER_SLIDERS'
+export const CHANGE_RANK_WEIGHTS = 'CHANGE_RANK_WEIGHTS'
 
 //Page Actions
 export const CHANGE_PAGE_NUMBER = 'CHANGE_PAGE_NUMBER'

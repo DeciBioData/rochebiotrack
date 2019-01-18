@@ -1,6 +1,6 @@
 import { 
 	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, 
-	CLEAR_DROPDOWNOPTIONS, FILL_COLUMN, FILTER_SLIDERS,
+	CLEAR_DROPDOWNOPTIONS, FILL_COLUMN, FILTER_SLIDERS, CHANGE_RANK_WEIGHTS
 } from '../actions/types'
 
 const initialState = {
@@ -129,6 +129,14 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				filters: state.filters
+			}
+			break
+
+		case CHANGE_RANK_WEIGHTS:
+			state.rankWeights[action.payload.type] = action.payload.value
+			return {
+				...state,
+				rankWeights: state.rankWeights
 			}
 			break
 

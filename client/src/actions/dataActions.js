@@ -1,6 +1,35 @@
-import { FETCH_DATA, UPDATE_DATA } from './types'
-
+import { FETCH_DATA, UPDATE_DATA, SORT_DATA } from './types'
 import companies from '../companies.json'
+
+const getScore = (company, rankWeights = {
+    totalFunding: 3,
+    timeSinceLastFunding: 0,
+    timeSinceFounding:3,
+    valuation: 0,
+    investorCount: 3,
+    teamRank: 2,
+    employeeCount: 0,
+    publicationCount: 0
+}) => {
+
+    const { 
+      totalFundingPercentile, timeSinceLastFundingPercentile, valuationPercentile, 
+      investorCountPercentile, teamRankPercentile, employeeCountPercentile, publicationCountPercentile,
+      timeSinceFoundingPercentile
+    } = company
+
+    const {
+        totalFunding, timeSinceLastFunding, valuation,
+        investorCount, teamRank, employeeCount, publicationCount, timeSinceFounding
+    } = rankWeights
+
+    let result = (totalFunding * parseFloat(totalFundingPercentile)) + (timeSinceLastFunding * parseFloat(timeSinceLastFundingPercentile)) +
+            (valuation * parseFloat(valuationPercentile)) + (investorCount * parseFloat(investorCountPercentile)) + (teamRank * parseFloat(teamRankPercentile)) + 
+            (employeeCount * parseFloat(employeeCountPercentile)) + (publicationCount * parseFloat(publicationCountPercentile)) +
+            (timeSinceFounding * parseFloat(timeSinceFoundingPercentile))
+
+    return result
+}
 
 export const fetchData = () => dispatch => {
 	// fetch('http://localhost:5000/api', {
@@ -40,10 +69,13 @@ export const fetchData = () => dispatch => {
 		teamRankPercentile: dataSet["Avg- Team Rank - Percentile"],
 		employeeCountPercentile: dataSet["Avg- Employee Count - Percentile"],
 		publicationCountPercentile: dataSet["Publication Count- Percentile"],
-		uuid: dataSet["UUID"],
-		score: 0
+		uuid: dataSet["UUID"]
 	})) || []
 	
+    companyData.sort((a, b) => getScore(b) - getScore(a))
+    companyData.forEach((company, index) => company.rank = index + 1)
+    companyData.forEach((company) => company.score = getScore(company))
+
 	dispatch({
 		type: FETCH_DATA,
 		payload: companyData
@@ -103,6 +135,32 @@ export const updateData = (companies, filters) => dispatch => {
 		payload: processedData
 	})
 }
+
+export const sortData = (companies, rankWeights) => dispatch => {
+
+    companies.sort((a, b) => getScore(b, rankWeights) - getScore(a, rankWeights))
+    companies.forEach((company) => company.score = getScore(company, rankWeights))
+
+    dispatch({
+    	type: SORT_DATA,
+    	payload: companies
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

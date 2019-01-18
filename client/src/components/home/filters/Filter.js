@@ -9,6 +9,7 @@ import { formatDollar } from "../../../actions/otherActions"
 import FilterInstruction from "./FilterInstruction"
 import DropdownOptions from "./DropdownOptions"
 import Slider from "./Slider"
+import RankCalculator from "./RankCalculator"
 
 class Filter extends Component {
 
@@ -140,6 +141,36 @@ class Filter extends Component {
 					<FilterInstruction name="Publication Count" type="Publication" result={`( ${Math.round(filters.publicationCount[0])} - ${Math.round(filters.publicationCount[1])} )`}
 						content='Filter down companies by selecting their minimum and maximum publication count'/>
 					<Slider type="Publication" value={filters.publicationCount} range={{min: 0, max: 5000}}/>
+				</div>
+
+				<div className="rank-calculator">
+					<FilterInstruction name="Ranking Weights Calculator" type="RankWeight" 
+						content={
+							<ul>
+								<li><b><u>Comapany Metrics</u></b></li>
+								<li> <b> -Time Since Founding</b>: More recently founded companies are given a higher score</li>
+								<li> <b> -Team Rank</b>: Aggregate score of team member ratings - higher score implies demonstrated achievements 
+								launching and sustaining companies</li>
+								<li> <b> -Employee Count</b>: Larger companies are given a higher score</li>
+								<li> <b> -Publication Count (beta)</b>: Companies with higher count of publications are given a higher score</li>
+								<br></br>
+
+								<li><b><u>Funding Metrics</u></b></li>
+								<li> <b> -Total Funding Amount</b>: Companies with higher total funding ($USD) are given a higher score</li>
+								<li> <b> -Time since last Funding</b>: Companies with more recent funding rounds are given a higher score</li>
+								<li> <b> -Valuation </b>: Companies with higher total reported valuation ($USD) are given a higher score</li>
+								<li> <b> -Investor Amount</b>: Companies with higher total investor count are given a higher score</li>
+							</ul>
+						}
+					/>
+					<button className="buttons info-buttons rankCalculatorButton" type="button" data-toggle="collapse" data-target="#rank-calculator">
+						Adjust Ranking Weights &#9660;
+					</button>
+					<div className="collapse" id="rank-calculator">
+				        <p className="modal-header-text text-secondary">[0] represents de-activating a particular metric</p>
+				       	<p className="modal-header-text text-secondary">[5] represents maximum weight for a metric</p>   
+				        <RankCalculator />
+			        </div>
 				</div>
 			</div>
 		)
