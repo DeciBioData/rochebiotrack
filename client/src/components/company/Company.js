@@ -13,7 +13,7 @@ import LoadingSpinner from '../others/LoadingSpinner'
 class Company extends Component {
 
 	componentDidMount() {
-		this.props.fetchCompany(this.props.match.params.id)		
+		this.props.fetchCompany(this.props.match.params.id)	
 	}
 
 	render() {

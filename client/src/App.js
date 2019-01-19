@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import { withAuth } from '@okta/okta-react'
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react'
 
 import Home from './components/home/Home'
@@ -26,12 +27,14 @@ const config = {
 
 class App extends Component {
   render() {
+  	console.log(this.props)
     return (
       <Provider store={store}>
       	<div>
-      		<Header/>
 			<Router>
 				<div>
+					<Route exact path="/" render={(props) => <Header plainHeader={false} {...props}/>}/>
+					<Route exact path="/company/:id" render={(props) => <Header plainHeader={true} {...props}/>}/>
 			        <Security issuer={config.issuer}
 			                  client_id={config.client_id}
 			                  redirect_uri={config.redirect_uri}
@@ -54,4 +57,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withAuth(App)

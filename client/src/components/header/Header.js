@@ -30,7 +30,7 @@ class Header extends Component {
 			    <img src="/logos/Roche_Logo.svg.png" width="75" className="d-inline-block align-top logo-img"/>
 			  </span>
 			  	<div>
-			  		<SignOutButton signOut={this.signOut.bind(this)}/>
+			  		{this.props.plainHeader ? null : <SignOutButton signOut={this.signOut.bind(this)}/>}
 			  	</div>
 			  </div>
 			</nav>
