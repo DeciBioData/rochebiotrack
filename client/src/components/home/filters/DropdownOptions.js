@@ -36,8 +36,14 @@ class DropdownOptions extends Component {
 		if(type == '(All)') { 
 			if(this.type != 'column') this.clearItem()
 			else {
-				let input = document.querySelectorAll('.columnCheckbox')[0]
-				if(!input.checked) this.clearItem()
+				let inputs = document.querySelectorAll('.columnCheckbox')
+				if(!inputs[0].checked) { 
+					this.clearItem()
+					const defaultList = ["Rank","Company Name", "Country","Founded","Last Funding","Employee Count", "Rounds", "Total Funding"]
+					inputs.forEach((input) => {
+						if(defaultList.indexOf(input.value) != -1) input.checked = true
+					})
+				}
 				else this.props.fillColumn()
 			}
 		}
