@@ -4,13 +4,10 @@ import Table from './table/Table'
 import Filter from './filters/Filter'
 import TableInfo from './table_info/TableInfo'
 import Pagination from './pagination/Pagination'
-import Header from './header/Header'
-import Footer from './footer/Footer'
 
 const Layout = () => {
 	return (
 		<div>
-			<Header />
 			<div className="container-fluid row main">
 				<div className="col-md-3">
 					<div className="side-section">
@@ -25,7 +22,6 @@ const Layout = () => {
 					</div>
 				</div>
 			</div>
-			<Footer />
 		</div>
 	)
 }

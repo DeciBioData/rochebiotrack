@@ -1,5 +1,8 @@
-import { FETCH_DATA, UPDATE_DATA, SORT_DATA } from './types'
+import { FETCH_DATA, UPDATE_DATA, SORT_DATA, FETCH_COMPANY } from './types'
 import companies from '../companies.json'
+
+const apiPath = 'https://api.crunchbase.com/v3.1/organizations'
+const apiKey = '50a32d84dbc41c930267958491d132c4'
 
 const getScore = (company, rankWeights = {
     totalFunding: 3,
@@ -147,6 +150,48 @@ export const sortData = (companies, rankWeights) => dispatch => {
     })
 }
 
+export const fetchCompany = (id) => dispatch => {
+  fetch(`${apiPath}/${id}?user_key=${apiKey}`)
+   .then(response => response.json())
+   .then(dataSet => {
+        const properties = dataSet.data.properties
+        const relationships = dataSet.data.relationships
+
+        const name = properties.name
+        const imageURL = properties.profile_image_url
+        const description = properties.description
+        const foundedOn = properties.founded_on ? properties.founded_on.split('-')[0] : 'Unknown'
+        const employeeCount = properties.num_employees_min && properties.num_employees_max ? `${properties.num_employees_min}-${properties.num_employees_max}` : 'Unknown'
+        const totalFunding = properties.total_funding_usd
+
+        const location = relationships.offices.item ? relationships.offices.item.properties : null
+        const news = relationships.news.items
+        const websites = relationships.websites.items
+        const funding = relationships.funding_rounds.items
+        const teams = relationships.featured_team.items
+        const categoriesList = relationships.categories.items //inside the "category_group"
+        const lastFunding = funding.length == 0 ? 'None' : funding[0].properties.announced_on ? funding[0].properties.announced_on.split('-')[0] : 'None'
+        const reportedValuation = funding.length == 0 ? 'None' : funding[0].properties.pre_money_valuation_usd ? funding[0].properties.pre_money_valuation_usd : 'None'
+
+        const categories = categoriesList.map((category) => {
+            let list = category.properties.category_groups
+            let mySet = new Set(list)
+            let array = Array.from(mySet)
+            return array
+        })
+
+        let companyInfo = {
+            id, name, imageURL, description, foundedOn, employeeCount, totalFunding, websites,
+            location: location ? `${location.region}, ${location.country}` : '', news, funding, 
+            teams, categories, lastFunding, reportedValuation            
+        }
+
+        dispatch({
+          type: FETCH_COMPANY,
+          payload: companyInfo
+       })    
+    })
+}
 
 
 

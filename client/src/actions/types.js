@@ -2,6 +2,7 @@
 export const FETCH_DATA = 'FETCH_DATA'
 export const UPDATE_DATA = 'UPDATE_DATA'
 export const SORT_DATA = 'SORT_DATA'
+export const FETCH_COMPANY = 'FETCH_COMPANY'
 
 //Filter Actions
 export const FILTER_NAME = 'FILTER_NAME'

@@ -1,8 +1,9 @@
-import { FETCH_DATA, UPDATE_DATA, SORT_DATA } from '../actions/types'
+import { FETCH_DATA, UPDATE_DATA, SORT_DATA, FETCH_COMPANY } from '../actions/types'
 
 const initialState = {
 	companies: [],
 	processedCompanies: [],
+	companyInfo: {},
 	onLoad: false
 }
 
@@ -28,6 +29,11 @@ export default function(state = initialState, action) {
 				processedCompanies: action.payload
 			}
 			break
+		case FETCH_COMPANY:
+			return {
+				...state,
+				companyInfo: action.payload
+			}
 		default:
 			return state
 			break
