@@ -4,17 +4,16 @@ import { changePageNumber, changeLastPageNumber } from "../../../actions/paginat
 
 class Pagination extends Component {
 
-	componentWillReceiveProps(nextProps) {
+	componentDidMount() {
     	//set new max page based on the new dataSets after filtering
-	    let lastPage = Math.ceil(nextProps.dataLength / nextProps.numberOfShowPerPage)
+	    let lastPage = Math.ceil(this.props.dataLength / this.props.numberOfShowPerPage)
 	    if(lastPage <= 0) lastPage = 1
 
-	    let currentPage = nextProps.currentPage
+	    let currentPage = this.props.currentPage
 	    if(currentPage > lastPage) currentPage = lastPage
 
 	    this.props.changePageNumber(currentPage)
-	  	this.props.changeLastPageNumber(lastPage)
-	  	this.forceUpdate()		
+	  	this.props.changeLastPageNumber(lastPage)		
 	}
 
 	increasePageNumber() {
