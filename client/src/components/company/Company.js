@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import { fetchCompany } from "../../actions/dataActions"
 
+import Header from '../header/Header'
 import SideNavBar from './SideNavBar'
 import Description from './Description'
 import Funding from './Funding'
@@ -31,6 +32,7 @@ class Company extends Component {
 		if(isEmpty(companyInfo)) return (<div className="spinner"><LoadingSpinner /></div>)
 		return (
 			<div>
+				<Header plainHeader={true}/>
 				<div className="container-fluid row main">
 					<div className="col-md-3 sidenav-section">
 						<SideNavBar companyInfo={companyInfo}/>

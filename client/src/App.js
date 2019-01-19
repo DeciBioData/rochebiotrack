@@ -1,12 +1,11 @@
 /* eslint-disable */
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import { withAuth } from '@okta/okta-react'
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react'
 
 import Home from './components/home/Home'
-import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 import Company from './components/company/Company'
 import Login from './components/auth/Login'
@@ -27,14 +26,11 @@ const config = {
 
 class App extends Component {
   render() {
-  	console.log(this.props)
     return (
       <Provider store={store}>
       	<div>
 			<Router>
 				<div>
-					<Route exact path="/" render={(props) => <Header plainHeader={false} {...props}/>}/>
-					<Route exact path="/company/:id" render={(props) => <Header plainHeader={true} {...props}/>}/>
 			        <Security issuer={config.issuer}
 			                  client_id={config.client_id}
 			                  redirect_uri={config.redirect_uri}
@@ -57,4 +53,4 @@ class App extends Component {
   }
 }
 
-export default withAuth(App)
+export default App
