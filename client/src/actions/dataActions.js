@@ -116,14 +116,14 @@ export const updateData = (companies, filters) => dispatch => {
     for(let i = 0; i < companies.length; i++) {
       let data = companies[i]
 
-      if(filters.yearFounded[0] == 2000) { filters.yearFounded[0] = 0 }
-      if(filters.name != "" && !matchPrefix(filters.name, data.name)) continue
-      if(filters.description != "" && !matchPrefix(filters.description, data.description)) continue
-      if(filters.employeeCount.length != 0 && filters.employeeCount.indexOf(data.employeeCount) == -1) continue
-      if(filters.category.length != 0 && !includeInArray(filters.category, data.categories.split(','))) continue
-      if(filters.country.length != 0 && !includeInArray(filters.country, data.country.split(','))) continue
-      if(filters.status.length != 0 && !includeInArray(filters.status, data.status.split(','))) continue
-      if(filters.region.length != 0 && !includeInArray(filters.region, data.region.split(','))) continue
+      if(filters.yearFounded[0] === 2000) { filters.yearFounded[0] = 0 }
+      if(filters.name !== "" && !matchPrefix(filters.name, data.name)) continue
+      if(filters.description !== "" && !matchPrefix(filters.description, data.description)) continue
+      if(filters.employeeCount.length !== 0 && filters.employeeCount.indexOf(data.employeeCount) === -1) continue
+      if(filters.category.length !== 0 && !includeInArray(filters.category, data.categories.split(','))) continue
+      if(filters.country.length !== 0 && !includeInArray(filters.country, data.country.split(','))) continue
+      if(filters.status.length !== 0 && !includeInArray(filters.status, data.status.split(','))) continue
+      if(filters.region.length !== 0 && !includeInArray(filters.region, data.region.split(','))) continue
       if(filters.totalFunding[0] > parseInt(data.totalFunding) || filters.totalFunding[1] < parseInt(data.totalFunding)) continue
       if(filters.rounds[0] > parseInt(data.rounds) || filters.rounds[1] < parseInt(data.rounds)) continue
       if(filters.reportedValuation[0] > parseInt(data.reportedValuation) || filters.reportedValuation[1] < parseInt(data.reportedValuation)) continue
@@ -170,8 +170,8 @@ export const fetchCompany = (id) => dispatch => {
         const funding = relationships.funding_rounds.items
         const teams = relationships.featured_team.items
         const categoriesList = relationships.categories.items //inside the "category_group"
-        const lastFunding = funding.length == 0 ? 'None' : funding[0].properties.announced_on ? funding[0].properties.announced_on.split('-')[0] : 'None'
-        const reportedValuation = funding.length == 0 ? 'None' : funding[0].properties.pre_money_valuation_usd ? funding[0].properties.pre_money_valuation_usd : 'None'
+        const lastFunding = funding.length === 0 ? 'None' : funding[0].properties.announced_on ? funding[0].properties.announced_on.split('-')[0] : 'None'
+        const reportedValuation = funding.length === 0 ? 'None' : funding[0].properties.pre_money_valuation_usd ? funding[0].properties.pre_money_valuation_usd : 'None'
 
         const categories = categoriesList.map((category) => {
             let list = category.properties.category_groups

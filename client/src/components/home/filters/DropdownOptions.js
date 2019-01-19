@@ -15,7 +15,7 @@ class DropdownOptions extends Component {
 
 	      if(prefix.length > str.length) return false
 	      for(let i = 0; i < prefix.length; i++) {
-	        if(prefix[i] != str[i]) return false
+	        if(prefix[i] !== str[i]) return false
 	      }
 	      return true
 	    }
@@ -24,7 +24,7 @@ class DropdownOptions extends Component {
 	    let items = document.getElementsByClassName(`${this.type}-items`)
 		for(let i = 0; i < items.length; i++) {
 			let value = items[i].getElementsByClassName(`${this.type}Checkbox`)[0].value
-			if(tag != "" && !matchPrefix(tag, value)) {
+			if(tag !== "" && !matchPrefix(tag, value)) {
 				items[i].style.display = "none"
 			}else {
 				items[i].style.display = ""
@@ -33,15 +33,15 @@ class DropdownOptions extends Component {
 	}
 
 	handleItem(type) {
-		if(type == '(All)') { 
-			if(this.type != 'column') this.clearItem()
+		if(type === '(All)') { 
+			if(this.type !== 'column') this.clearItem()
 			else {
 				let inputs = document.querySelectorAll('.columnCheckbox')
 				if(!inputs[0].checked) { 
 					this.clearItem()
 					const defaultList = ["Rank","Company Name", "Country","Founded","Last Funding","Employee Count", "Rounds", "Total Funding"]
 					inputs.forEach((input) => {
-						if(defaultList.indexOf(input.value) != -1) input.checked = true
+						if(defaultList.indexOf(input.value) !== -1) input.checked = true
 					})
 				}
 				else this.props.fillColumn()

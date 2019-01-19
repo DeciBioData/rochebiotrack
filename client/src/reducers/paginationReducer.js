@@ -1,4 +1,4 @@
-import store from "../store"
+/* eslint-disable */
 import { CHANGE_PAGE_NUMBER, CHANGE_LAST_PAGE_NUMBER} from '../actions/types'
 
 const initialState = {

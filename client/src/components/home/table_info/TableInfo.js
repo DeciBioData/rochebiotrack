@@ -9,32 +9,32 @@ class TableInfo extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			employeeCount: props.filters.employeeCount.length == 0 ? null : props.filters.employeeCount,
-			category: props.filters.category.length == 0 ? null : props.filters.category,
-			country: props.filters.country.length == 0 ? null : props.filters.country,
-			status: props.filters.status.length == 0 ? null : props.filters.status,
-			region: props.filters.region.length == 0 ? null : props.filters.region,
-			totalFunding: props.filters.totalFunding[0] == 0 && props.filters.totalFunding[1] == 6000000000 ? null : props.filters.totalFunding,
-			rounds: props.filters.rounds[0] == 0 && props.filters.rounds[1] == 30 ? null : props.filters.rounds,
-			reportedValuation: props.filters.reportedValuation[0] == 0 && props.filters.reportedValuation[1] == 150000000000 ? null : props.filters.reportedValuation,
-			yearFounded: props.filters.yearFounded[0] == 2000 && props.filters.yearFounded[1] == 2018 || props.filters.yearFounded[0] == 0 && props.filters.yearFounded[1] == 2018 ? null : props.filters.yearFounded,
-			publicationCount: props.filters.publicationCount[0] == 0 && props.filters.publicationCount[1] == 5000 ? null : props.filters.publicationCount
+			employeeCount: props.filters.employeeCount.length === 0 ? null : props.filters.employeeCount,
+			category: props.filters.category.length === 0 ? null : props.filters.category,
+			country: props.filters.country.length === 0 ? null : props.filters.country,
+			status: props.filters.status.length === 0 ? null : props.filters.status,
+			region: props.filters.region.length === 0 ? null : props.filters.region,
+			totalFunding: props.filters.totalFunding[0] === 0 && props.filters.totalFunding[1] === 6000000000 ? null : props.filters.totalFunding,
+			rounds: props.filters.rounds[0] === 0 && props.filters.rounds[1] === 30 ? null : props.filters.rounds,
+			reportedValuation: props.filters.reportedValuation[0] === 0 && props.filters.reportedValuation[1] === 150000000000 ? null : props.filters.reportedValuation,
+			yearFounded: (props.filters.yearFounded[0] === 2000 && props.filters.yearFounded[1] === 2018) || (props.filters.yearFounded[0] === 0 && props.filters.yearFounded[1] === 2018) ? null : props.filters.yearFounded,
+			publicationCount: props.filters.publicationCount[0] === 0 && props.filters.publicationCount[1] === 5000 ? null : props.filters.publicationCount
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
 		const { filters } = nextProps
 		this.setState({
-			employeeCount: filters.employeeCount.length == 0 ? null : filters.employeeCount,
-			category: filters.category.length == 0 ? null : filters.category,
-			country: filters.country.length == 0 ? null : filters.country,
-			status: filters.status.length == 0 ? null : filters.status,
-			region: filters.region.length == 0 ? null : filters.region,
-			totalFunding: filters.totalFunding[0] == 0 && filters.totalFunding[1] == 6000000000 ? null : filters.totalFunding,
-			rounds: filters.rounds[0] == 0 && filters.rounds[1] == 30 ? null : filters.rounds,
-			reportedValuation: filters.reportedValuation[0] == 0 && filters.reportedValuation[1] == 150000000000 ? null : filters.reportedValuation,
-			yearFounded: filters.yearFounded[0] == 2000 && filters.yearFounded[1] == 2018 || filters.yearFounded[0] == 0 && filters.yearFounded[1] == 2018 ? null : filters.yearFounded,
-			publicationCount:filters.publicationCount[0] == 0 && filters.publicationCount[1] == 5000 ? null : filters.publicationCount
+			employeeCount: filters.employeeCount.length === 0 ? null : filters.employeeCount,
+			category: filters.category.length === 0 ? null : filters.category,
+			country: filters.country.length === 0 ? null : filters.country,
+			status: filters.status.length === 0 ? null : filters.status,
+			region: filters.region.length === 0 ? null : filters.region,
+			totalFunding: filters.totalFunding[0] === 0 && filters.totalFunding[1] === 6000000000 ? null : filters.totalFunding,
+			rounds: filters.rounds[0] === 0 && filters.rounds[1] === 30 ? null : filters.rounds,
+			reportedValuation: filters.reportedValuation[0] === 0 && filters.reportedValuation[1] === 150000000000 ? null : filters.reportedValuation,
+			yearFounded: (filters.yearFounded[0] === 2000 && filters.yearFounded[1] === 2018) || (filters.yearFounded[0] === 0 && filters.yearFounded[1] === 2018) ? null : filters.yearFounded,
+			publicationCount: filters.publicationCount[0] === 0 && filters.publicationCount[1] === 5000 ? null : filters.publicationCount
 		})
 	}
 
@@ -42,11 +42,11 @@ class TableInfo extends Component {
 		const dropdownList = ["Employee Count", "Category", "Country", "Status", "Region"]
 		const sliderList = ["Total Funding", "Rounds", "Reported Valuation", "Year Founded", "Publication"]
 
-		if(dropdownList.indexOf(name) != -1) {
+		if(dropdownList.indexOf(name) !== -1) {
 			this.props.filterDropdownOptions(type, content)
 			document.getElementById(`${type}-${content}`).checked = false
 		}
-		else {
+		else if(sliderList.indexOf(name) !== -1){
 			this.props.clearSliders(type)
 		}
 		this.props.updateData(this.props.companies, this.props.filters)
@@ -60,7 +60,7 @@ class TableInfo extends Component {
 		let columns = document.querySelectorAll('.columnCheckbox')
 		const defaultList = ["Rank","Company Name", "Country","Founded","Last Funding","Employee Count", "Rounds", "Total Funding"]
 		columns.forEach((input) => {
-			if(defaultList.indexOf(input.value) != -1) input.checked = true
+			if(defaultList.indexOf(input.value) !== -1) input.checked = true
 		})
 		this.props.clearAll()
 		this.props.updateData(this.props.companies, this.props.filters)
@@ -126,7 +126,7 @@ class TableInfo extends Component {
 							)
 						})
 					}
-					{ showItems.length == 0 ? '' : 
+					{ showItems.length === 0 ? '' : 
 						<li className="filterTags">
 							<button className="buttons info-buttons" onClick={this.clearAllFilter.bind(this)}>CLEAR ALL</button> 
 						</li>

@@ -133,7 +133,7 @@ class Filter extends Component {
 				</div>
 				<div className="filter-slider">
 					<FilterInstruction name="Year Founded" type="YearFounded" 
-						result={`( ${filters.yearFounded[0] == 0 ? filters.yearFounded[1] == 2000 ? 0 : 2000 : filters.yearFounded[0]} - ${filters.yearFounded[1]} )`}
+						result={`( ${filters.yearFounded[0] === 0 ? filters.yearFounded[1] === 2000 ? 0 : 2000 : filters.yearFounded[0]} - ${filters.yearFounded[1]} )`}
 						content='Filter down companies by selecting their minimum and maximum founding year'/>
 					<Slider type="YearFounded" value={filters.yearFounded} range={{min: 2000, max: 2018}}/>
 				</div>

@@ -1,12 +1,10 @@
+/* eslint-disable */
 import React, { Component } from 'react'
 import { withAuth } from '@okta/okta-react'
 
 import SignOutButton from './SignOutButton'
 
 class Header extends Component {
-	constructor(props) {
-		super(props)
-	}
 
 	async signOut() {
 		this.props.auth.logout('/');

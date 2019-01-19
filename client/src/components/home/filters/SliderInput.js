@@ -10,12 +10,12 @@ class SliderInput extends Component {
 		super(props)
 		this.state = {
 			isOpen: false,
-			value: props.type == 'Min' ? props.range[0] : props.range[1]
+			value: props.type === 'Min' ? props.range[0] : props.range[1]
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ value: nextProps.type == 'Min' ? nextProps.range[0]: nextProps.range[1] })
+		this.setState({ value: nextProps.type === 'Min' ? nextProps.range[0]: nextProps.range[1] })
 	}
 
 	openPanel() {
@@ -26,7 +26,7 @@ class SliderInput extends Component {
 		let value = e.target.value
 		value = value < this.props.min ? this.props.min : value
 		value = value > this.props.max ? this.props.max : value
-		if(this.props.type == 'Min') {
+		if(this.props.type === 'Min') {
 			this.props.filterSliders(this.props.name, [value, this.props.range[1]])
 		}
 		else {

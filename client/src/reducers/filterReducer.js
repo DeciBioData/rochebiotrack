@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { 
 	FILTER_NAME, FILTER_DESCRIPTION, FILTER_DROPDOWNOPTIONS, CLEAR_ALL,
 	CLEAR_DROPDOWNOPTIONS, CLEAR_SLIDERS, FILL_COLUMN, FILTER_SLIDERS, CHANGE_RANK_WEIGHTS
@@ -57,7 +58,7 @@ export default function(state = initialState, action) {
 			switch(action.payload.type) {
 				case 'column':
 				    let typeIndex = state.columns.indexOf(action.payload.item)
-				    if(typeIndex == -1) state.columns.push(action.payload.item)
+				    if(typeIndex === -1) state.columns.push(action.payload.item)
 				    else {
 				      state.columns.splice(typeIndex, 1)
 				    }
@@ -68,7 +69,7 @@ export default function(state = initialState, action) {
 					break
 				default:
 				    typeIndex = state.filters[action.payload.type].indexOf(action.payload.item)
-				    if(typeIndex == -1) state.filters[action.payload.type].push(action.payload.item)
+				    if(typeIndex === -1) state.filters[action.payload.type].push(action.payload.item)
 				    else {
 				      state.filters[action.payload.type].splice(typeIndex, 1)
 				    }
@@ -158,6 +159,7 @@ export default function(state = initialState, action) {
 				case "Publication":
 					state.filters.publicationCount = action.payload.newRange
 					break
+				default: break
 			}
 			return {
 				...state,

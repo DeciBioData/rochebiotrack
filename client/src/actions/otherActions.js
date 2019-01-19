@@ -14,7 +14,7 @@ export const exportExcel = (companies, columns) => {
 	let titles = []
 
 	columns.forEach((col) => {
-		if(col != "(All)") titles.push(col)
+		if(col !== "(All)") titles.push(col)
 	})
 	dataSheets.push(titles)
 
@@ -55,6 +55,7 @@ export const exportExcel = (companies, columns) => {
 					key = "investorCount"; break
 				case "Rank Score":
 					key = "score"; break
+				default: break
 			}
 			content.push(company[key])
 		})

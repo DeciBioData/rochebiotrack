@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { FETCH_DATA, UPDATE_DATA, SORT_DATA, FETCH_COMPANY } from '../actions/types'
 
 const initialState = {
