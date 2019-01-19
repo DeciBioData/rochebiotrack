@@ -13,7 +13,8 @@ class Pagination extends Component {
 	    if(currentPage > lastPage) currentPage = lastPage
 
 	    this.props.changePageNumber(currentPage)
-	  	this.props.changeLastPageNumber(lastPage)		
+	  	this.props.changeLastPageNumber(lastPage)
+	  	this.forceUpdate()		
 	}
 
 	increasePageNumber() {
