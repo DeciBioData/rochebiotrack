@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import SignInWidget from './SignInWidget';
 import { withAuth } from '@okta/okta-react';
-import LoadingSpinner from '../assests/js/LoadingSpinner'
+import LoadingSpinner from '../others/LoadingSpinner'
 
 export default withAuth(
   class Login extends Component {

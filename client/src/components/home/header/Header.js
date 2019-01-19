@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { withAuth } from '@okta/okta-react'
+
 import SignOutButton from './SignOutButton'
 
 class Header extends Component {
@@ -6,8 +8,8 @@ class Header extends Component {
 		super(props)
 	}
 
-	signOut() {
-		//this.props.signOut()
+	async signOut() {
+		this.props.auth.logout('/');
 	}
 
 	render() {
@@ -36,4 +38,4 @@ class Header extends Component {
 	}
 }
 
-export default Header
+export default withAuth(Header)
