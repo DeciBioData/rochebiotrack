@@ -1,5 +1,4 @@
 import { FETCH_DATA, UPDATE_DATA, SORT_DATA, FETCH_COMPANY } from './types'
-import companies from '../companies.json'
 
 const apiPath = 'https://api.crunchbase.com/v3.1/organizations'
 const apiKey = '50a32d84dbc41c930267958491d132c4'
@@ -35,54 +34,51 @@ const getScore = (company, rankWeights = {
 }
 
 export const fetchData = () => dispatch => {
-	// fetch('http://localhost:5000/api', {
- //      headers : { 
- //        'Content-Type': 'application/json',
- //        'Accept': 'application/json'
- //       }
- //    })
-	// 	.then(response => response.json())
-	// 	.then(companies => dispatch({
-	// 		type: FETCH_DATA,
-	// 		payload: companies
-	// 	}))
+	fetch('/api', {
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    })
+		.then(response => response.json())
+		.then(companies => {
+      let companyData = companies.map((dataSet, index) => ({
+          name: dataSet["Company Name"],
+          description: dataSet["short_description"],
+          yearOfFound: dataSet["Year of Founded"],
+          employeeCount: dataSet["Employee Count"],
+          yearOfLastFund: dataSet["Year of Last Funding"],
+          categories: dataSet["Category List"],
+          country: dataSet["country"],
+          region: dataSet["region"],
+          status: dataSet["status"],
+          rank: dataSet["Rank"],
+          rounds: dataSet["Rounds"],
+          totalFunding: dataSet["Total Funding"],
+          reportedValuation: dataSet["Reported Valuation"],
+          publicationCount: dataSet["Publication Count"],
+          investorCount: dataSet["Investor Count"],
+          teamRank: dataSet["Avg- Team Rank"],
+          totalFundingPercentile: dataSet["Total Funding- Percentile"],
+          timeSinceLastFundingPercentile: dataSet["Time since Last Funding - Percentile"],
+          timeSinceFoundingPercentile: dataSet["Time since Founding - Percentile"],
+          valuationPercentile: dataSet["Valuation- Percentile"],
+          investorCountPercentile: dataSet["Investor Count - Percentile"],
+          teamRankPercentile: dataSet["Avg- Team Rank - Percentile"],
+          employeeCountPercentile: dataSet["Avg- Employee Count - Percentile"],
+          publicationCountPercentile: dataSet["Publication Count- Percentile"],
+          uuid: dataSet["UUID"]
+        })) || []
+      
+        companyData.sort((a, b) => getScore(b) - getScore(a))
+        companyData.forEach((company, index) => company.rank = index + 1)
+        companyData.forEach((company) => company.score = getScore(company))
 
-	let companyData = companies.map((dataSet, index) => ({
-		name: dataSet["Company Name"],
-		description: dataSet["short_description"],
-		yearOfFound: dataSet["Year of Founded"],
-		employeeCount: dataSet["Employee Count"],
-		yearOfLastFund: dataSet["Year of Last Funding"],
-		categories: dataSet["Category List"],
-		country: dataSet["country"],
-		region: dataSet["region"],
-		status: dataSet["status"],
-		rank: dataSet["Rank"],
-		rounds: dataSet["Rounds"],
-		totalFunding: dataSet["Total Funding"],
-		reportedValuation: dataSet["Reported Valuation"],
-		publicationCount: dataSet["Publication Count"],
-		investorCount: dataSet["Investor Count"],
-		teamRank: dataSet["Avg- Team Rank"],
-		totalFundingPercentile: dataSet["Total Funding- Percentile"],
-		timeSinceLastFundingPercentile: dataSet["Time since Last Funding - Percentile"],
-		timeSinceFoundingPercentile: dataSet["Time since Founding - Percentile"],
-		valuationPercentile: dataSet["Valuation- Percentile"],
-		investorCountPercentile: dataSet["Investor Count - Percentile"],
-		teamRankPercentile: dataSet["Avg- Team Rank - Percentile"],
-		employeeCountPercentile: dataSet["Avg- Employee Count - Percentile"],
-		publicationCountPercentile: dataSet["Publication Count- Percentile"],
-		uuid: dataSet["UUID"]
-	})) || []
-	
-    companyData.sort((a, b) => getScore(b) - getScore(a))
-    companyData.forEach((company, index) => company.rank = index + 1)
-    companyData.forEach((company) => company.score = getScore(company))
-
-	dispatch({
-		type: FETCH_DATA,
-		payload: companyData
-	})
+        dispatch({
+          type: FETCH_DATA,
+          payload: companyData
+        })
+    })
 }
 
 export const updateData = (companies, filters) => dispatch => {

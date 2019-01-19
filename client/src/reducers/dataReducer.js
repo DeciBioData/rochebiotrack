@@ -5,7 +5,7 @@ const initialState = {
 	companies: [],
 	processedCompanies: [],
 	companyInfo: {},
-	onLoad: false
+	onLoad: true
 }
 
 export default function(state = initialState, action) {
@@ -15,7 +15,7 @@ export default function(state = initialState, action) {
 				...state,
 				companies: action.payload,
 				processedCompanies: action.payload,
-				onLoad: true
+				onLoad: false
 			}
 			break
 		case UPDATE_DATA:
@@ -27,7 +27,7 @@ export default function(state = initialState, action) {
 		case SORT_DATA:
 			return {
 				...state,
-				processedCompanies: action.payload
+				companies: action.payload
 			}
 			break
 		case FETCH_COMPANY:

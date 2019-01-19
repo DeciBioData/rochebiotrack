@@ -38,7 +38,7 @@ class RankCalculator extends Component {
 }
 
 const mapStateToProps = state => ({
-	companies: state.data.processedCompanies,
+	companies: state.data.companies,
 	rankWeights: state.filter.rankWeights,
 	filters: state.filter.filters
 })

@@ -1,16 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { fetchData } from "../../../actions/dataActions"
 import { formatDollar } from "../../../actions/otherActions"
 
-import LoadingSpinner from "../../others/LoadingSpinner"
-
 class Table extends Component {
-
-	componentDidMount() {
-		this.props.fetchData()
-	}
-
 	render() {
 		const table = new Set(this.props.columns)
 
@@ -20,8 +12,6 @@ class Table extends Component {
 		let endEntry = this.props.currentPage * this.props.numberOfShowPerPage
   		let startEntry = endEntry - this.props.numberOfShowPerPage
   		let partialData = sortedData.slice(startEntry, endEntry)
-
-		if(!this.props.onLoad) return <div className="spinner"><LoadingSpinner /></div>
 			
 		return(
 			<div className="table-responsive">
@@ -82,13 +72,11 @@ class Table extends Component {
 } 
 
 const mapStateToProps = state => ({
-	companies: state.data.processedCompanies,
-	onLoad: state.data.onLoad,
 	columns: state.filter.columns,
 	numberOfShowPerPage: state.pagination.numberOfShowPerPage,
 	currentPage: state.pagination.currentPage,
 	lastPage: state.pagination.lastPage
 })
 
-export default connect(mapStateToProps, { fetchData })(Table)
+export default connect(mapStateToProps)(Table)
 
