@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatDollar, exportExcel } from '../../../actions/otherActions'
-import { clearSliders, clearDropdownOptions, clearAll } from '../../../actions/filterActions'
+import { clearSliders, filterDropdownOptions, clearAll } from '../../../actions/filterActions'
+import { updateData } from "../../../actions/dataActions"
 
 class TableInfo extends Component {
 
@@ -42,12 +43,13 @@ class TableInfo extends Component {
 		const sliderList = ["Total Funding", "Rounds", "Reported Valuation", "Year Founded", "Publication"]
 
 		if(dropdownList.indexOf(name) != -1) {
-			this.props.clearDropdownOptions(type, content)
+			this.props.filterDropdownOptions(type, content)
 			document.getElementById(`${type}-${content}`).checked = false
 		}
 		else {
 			this.props.clearSliders(type)
 		}
+		this.props.updateData(this.props.companies, this.props.filters)
 	}
 
 	clearAllFilter() {
@@ -55,7 +57,13 @@ class TableInfo extends Component {
 		for (let i = 0; i < inputs.length; i++) {
 			inputs[i].checked = false;
 		}
+		let columns = document.querySelectorAll('.columnCheckbox')
+		const defaultList = ["Rank","Company Name", "Country","Founded","Last Funding","Employee Count", "Rounds", "Total Funding"]
+		columns.forEach((input) => {
+			if(defaultList.indexOf(input.value) != -1) input.checked = true
+		})
 		this.props.clearAll()
+		this.props.updateData(this.props.companies, this.props.filters)
 	}
 
 	exportExcel(data, col) {
@@ -63,43 +71,43 @@ class TableInfo extends Component {
 	}
 
 	render() {
-		const { employeeCount, category, country, status, region, totalFunding, rounds, reportedValuation, yearFounded, publicationCount } = this.props.filters
+		const { employeeCount, category, country, status, region, totalFunding, rounds, reportedValuation, yearFounded, publicationCount } = this.state
 		const showItems = []
 
-		if(employeeCount.length != 0) {
+		if(employeeCount) {
 			employeeCount.forEach((data) => {
 				showItems.push({ name: "Employee Count", type:"employeeCount" ,content: data })
 			})
 		}
-		if(category.length != 0) {
+		if(category) {
 			category.forEach((data) => {
 				showItems.push({ name: "Category", type:"category" ,content: data })
 			})
 		}
 
-		if(country.length != 0) {
+		if(country) {
 			country.forEach((data) => {
 				showItems.push({ name: "Country", type:"country" ,content: data })
 			})
 		}
 
-		if(status.length != 0) {
+		if(status) {
 			status.forEach((data) => {
 				showItems.push({ name: "Status", type:"status" ,content: data })
 			})
 		}
 
-		if(region.length != 0) {
+		if(region) {
 			region.forEach((data) => {
 				showItems.push({ name: "Region", type:"region" ,content: data })
 			})
 		}
 
-		if(totalFunding[0] != 0 || totalFunding[1] != 6000000000) showItems.push({ name: "Total Funding", type:"totalFunding", content: `${formatDollar(parseInt(totalFunding[0]))} - ${formatDollar(parseInt(totalFunding[1]))}`})
-		if(rounds[0] != 0 || rounds[1] != 30) showItems.push({ name: "Rounds", type: "rounds", content: `${parseInt(rounds[0])} - ${parseInt(rounds[1])}`})
-		if(reportedValuation[0] != 0 || reportedValuation[1] != 150000000000) showItems.push({ name: "Reported Valuation", type: "reportedValuation", content: `${formatDollar(parseInt(reportedValuation[0]))} - ${formatDollar(parseInt(reportedValuation[1]))}`})
-		if(!(yearFounded[0] == 2000 && yearFounded[1] == 2018 || yearFounded[0] == 0 && yearFounded[1] == 2018)) showItems.push({ name: "Year Founded", type: "yearFounded", content: `${parseInt(yearFounded[0])} - ${parseInt(yearFounded[1])}`})
-		if(publicationCount[0] != 0 || publicationCount[1] != 5000) showItems.push({ name: "Publication Count", type: "publicationCount", content: `${parseInt(publicationCount[0])} - ${parseInt(publicationCount[1])}`})
+		if(totalFunding) showItems.push({ name: "Total Funding", type:"totalFunding", content: `${formatDollar(parseInt(totalFunding[0]))} - ${formatDollar(parseInt(totalFunding[1]))}`})
+		if(rounds) showItems.push({ name: "Rounds", type: "rounds", content: `${parseInt(rounds[0])} - ${parseInt(rounds[1])}`})
+		if(reportedValuation) showItems.push({ name: "Reported Valuation", type: "reportedValuation", content: `${formatDollar(parseInt(reportedValuation[0]))} - ${formatDollar(parseInt(reportedValuation[1]))}`})
+		if(yearFounded) showItems.push({ name: "Year Founded", type: "yearFounded", content: `${parseInt(yearFounded[0])} - ${parseInt(yearFounded[1])}`})
+		if(publicationCount) showItems.push({ name: "Publication Count", type: "publicationCount", content: `${parseInt(publicationCount[0])} - ${parseInt(publicationCount[1])}`})
 
 		return(
 			<div className="tags-section">
@@ -131,9 +139,10 @@ class TableInfo extends Component {
 }
 
 const mapStateToProps = state => ({
-	companies: state.data.processedCompanies,
+	companies: state.data.companies,
+	processedCompanies: state.data.processedCompanies,
 	filters: state.filter.filters
 })
 
-export default connect(mapStateToProps, { clearSliders, clearDropdownOptions, clearAll })(TableInfo)
+export default connect(mapStateToProps, { clearSliders, filterDropdownOptions, clearAll, updateData })(TableInfo)
 
