@@ -141,6 +141,7 @@ class TableInfo extends Component {
 const mapStateToProps = state => ({
 	companies: state.data.companies,
 	processedCompanies: state.data.processedCompanies,
+	columns: state.filter.columns,
 	filters: state.filter.filters
 })
 
