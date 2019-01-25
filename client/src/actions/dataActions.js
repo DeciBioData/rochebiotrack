@@ -1,7 +1,7 @@
 import { FETCH_DATA, UPDATE_DATA, SORT_DATA, FETCH_COMPANY } from './types'
 
 const apiPath = 'https://api.crunchbase.com/v3.1/organizations'
-const apiKey = '50a32d84dbc41c930267958491d132c4'
+const apiKey = `${process.env.REACT_APP_CRUNCHBASE_API_KEY}`
 
 const getScore = (company, rankWeights = {
     totalFunding: 3,
