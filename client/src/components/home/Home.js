@@ -19,7 +19,6 @@ class Layout extends Component {
 		if(this.props.onLoad) return <div className="spinner"><LoadingSpinner/></div>
 		return (
 			<div>
-				<Header plainHeader={false}/>
 				<div className="container-fluid row main">
 					<div className="col-md-3">
 						<div className="side-section">

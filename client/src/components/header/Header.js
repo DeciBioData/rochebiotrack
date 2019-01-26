@@ -1,13 +1,15 @@
 /* eslint-disable */
 import React, { Component } from 'react'
-import { withAuth } from '@okta/okta-react'
+import { withRouter } from 'react-router-dom'
+import auth0Client from '../auth/Auth'
 
 import SignOutButton from './SignOutButton'
 
 class Header extends Component {
 
-	async signOut() {
-		this.props.auth.logout('/');
+	signOut() {
+		auth0Client.signOut();
+		this.props.history.replace('/');
 	}
 
 	render() {
@@ -28,7 +30,7 @@ class Header extends Component {
 			    <img src="/logos/Roche_Logo.svg.png" width="75" className="d-inline-block align-top logo-img"/>
 			  </span>
 			  	<div>
-			  		{this.props.plainHeader ? null : <SignOutButton signOut={this.signOut.bind(this)}/>}
+			  		{ auth0Client.isAuthenticated() ? <SignOutButton signOut={this.signOut.bind(this)}/> : null }
 			  	</div>
 			  </div>
 			</nav>
@@ -36,4 +38,4 @@ class Header extends Component {
 	}
 }
 
-export default withAuth(Header)
+export default withRouter(Header)
