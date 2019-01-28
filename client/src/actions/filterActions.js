@@ -6,14 +6,30 @@ import {
 export const filterName = (name) => dispatch => {
 	dispatch({
 		type: FILTER_NAME,
-		payload: name
+		payload: name,
+		meta: {
+			mixpanel: {
+				event: 'Search Name',
+				props: {
+					input: name
+				}
+			}
+		}
 	})
 }
 
 export const filterDescription = (description) => dispatch => {
 	dispatch({
 		type: FILTER_DESCRIPTION,
-		payload: description
+		payload: description,
+		meta: {
+			mixpanel: {
+				event: 'Search description',
+				props: {
+					input: description
+				}
+			}
+		}
 	})
 }
 
@@ -23,6 +39,15 @@ export const filterDropdownOptions = (type, item) => dispatch => {
 		payload: {
 			type,
 			item
+		},
+		meta: {
+			mixpanel: {
+				event: 'Dropdown Filter',
+				props: {
+					type,
+					tags: item
+				}
+			}
 		}
 	})
 }
@@ -61,6 +86,15 @@ export const filterSliders = (type, newRange) => dispatch => {
 		payload: {
 			type,
 			newRange
+		},
+		meta: {
+			mixpanel: {
+				event: 'Slider Filter',
+				props: {
+					type,
+					range: newRange
+				}
+			}
 		}
 	})
 }
@@ -71,7 +105,16 @@ export const changeRankWeights = (type, value) => dispatch => {
 		payload: {
 			type,
 			value
-		}
+		},
+	    meta: {
+			mixpanel: {
+			  event: 'Change Rank Weights',
+			  props: {
+			    type,
+			    value
+			  }
+			}
+	    }
 	})
 }
 
