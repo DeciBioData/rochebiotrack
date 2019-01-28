@@ -46,6 +46,7 @@ class App extends Component {
       if (err.error !== 'login_required') console.log(err.error);
     }
     this.setState({checkingSession:false})
+    this.context.mixpanel.track('App did mount.')
   }
 
   render() {
@@ -62,6 +63,10 @@ class App extends Component {
 		</div>
     )
   }
+}
+
+App.contextTypes = {
+    mixpanel: PropTypes.object.isRequired
 }
 
 export default withRouter(App)
