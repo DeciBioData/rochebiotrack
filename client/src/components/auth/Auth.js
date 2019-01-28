@@ -7,7 +7,7 @@ class Auth {
       domain: 'decibio.auth0.com',
       audience: 'https://decibio.auth0.com/userinfo',
       clientID: 'dhGoPCGbk9Ys9KhvJsgFbPjiNfOHGTM5',
-      redirectUri: 'http://localhost:3000/callback',
+      redirectUri: 'https://biotrack-crunchbase.herokuapp.com/callback',
       responseType: 'id_token',
       scope: 'openid profile'
     });
@@ -58,7 +58,7 @@ class Auth {
   signOut() {
     // clear id token, profile, and expiration
     this.auth0.logout({
-      returnTo: 'http://localhost:3000',
+      returnTo: 'https://biotrack-crunchbase.herokuapp.com',
       clientID: 'dhGoPCGbk9Ys9KhvJsgFbPjiNfOHGTM5',
     });
   }
