@@ -49,7 +49,7 @@ class TableInfo extends Component {
 		else if(sliderList.indexOf(name) !== -1){
 			this.props.clearSliders(type)
 		}
-		this.props.updateData(this.props.companies, this.props.filters)
+		this.props.updateData(this.props.filters)
 	}
 
 	clearAllFilter() {
@@ -63,7 +63,7 @@ class TableInfo extends Component {
 			if(defaultList.indexOf(input.value) !== -1) input.checked = true
 		})
 		this.props.clearAll()
-		this.props.updateData(this.props.companies, this.props.filters)
+		this.props.updateData(this.props.filters)
 	}
 
 	exportExcel(data, col) {
@@ -140,7 +140,6 @@ class TableInfo extends Component {
 
 const mapStateToProps = state => ({
 	companies: state.data.companies,
-	processedCompanies: state.data.processedCompanies,
 	columns: state.filter.columns,
 	filters: state.filter.filters
 })

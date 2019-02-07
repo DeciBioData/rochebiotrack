@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 import { BrowserRouter as Router, Route, Switch, withRouter } from "react-router-dom"
 import { fetchCompany } from "../../actions/dataActions"
 
-import Header from '../header/Header'
 import SideNavBar from './SideNavBar'
 import Description from './Description'
 import Funding from './Funding'

@@ -48,7 +48,6 @@ class DropdownOptions extends Component {
 			}
 		}
 		else this.props.handleDropdownOptions(this.type, type)  
-		this.props.updateData()	
 	}
 
 	clearItem() {
@@ -57,7 +56,6 @@ class DropdownOptions extends Component {
 	      inputs[i].checked = false;
 	    }
 	    this.props.clearDropdownOptions(this.type)
-	    this.props.updateData()    
 	}
 
 	render() {

@@ -3,16 +3,9 @@ import { connect } from "react-redux"
 import { formatDollar } from "../../../actions/otherActions"
 
 class Table extends Component {
+
 	render() {
 		const table = new Set(this.props.columns)
-
-		let sortedData = this.props.companies.slice()
-		sortedData.forEach((data, index) => data.rank = index + 1)
-
-		let endEntry = this.props.currentPage * this.props.numberOfShowPerPage
-  		let startEntry = endEntry - this.props.numberOfShowPerPage
-  		let partialData = sortedData.slice(startEntry, endEntry)
-			
 		return(
 			<div className="table-responsive">
 				<table className="table table-sm" id="tableData">
@@ -39,7 +32,7 @@ class Table extends Component {
 				    </thead>
 				    <tbody>
 				    	{
-				    		partialData.map((data, index) => {
+				    		this.props.companies.map((data, index) => {
 				    			return (
 							    	<tr key={index}>
 							    		{table.has("Rank") ? <th className="text-left">{data.rank}</th> : null}
@@ -69,13 +62,10 @@ class Table extends Component {
 			</div>
 		)
 	}
-} 
+}
 
 const mapStateToProps = state => ({
-	columns: state.filter.columns,
-	numberOfShowPerPage: state.pagination.numberOfShowPerPage,
-	currentPage: state.pagination.currentPage,
-	lastPage: state.pagination.lastPage
+	columns: state.filter.columns
 })
 
 export default connect(mapStateToProps)(Table)

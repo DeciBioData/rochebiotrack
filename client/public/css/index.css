@@ -292,6 +292,7 @@ input:focus {
 	width: 100%;
 	margin-top: 5%;
 	padding-left: 15%;
+	position: relative;
 }
 
 .sliderInputs {
@@ -412,9 +413,10 @@ Navbar items(Filters)
 	Dropdwon
 =====================*/
 .dropdown-menu {
-	height: 200px;
-	width: 300px;
+	max-height: 200px;
+	width: 100%;
 	overflow: auto;
+	position: relative;
 }
 
 .dropdown-item {
@@ -451,6 +453,9 @@ Navbar items(Filters)
   }
   .data-table {
   	max-height: 700px;
+  }
+  .dropdown-menu {
+
   }
 }
 

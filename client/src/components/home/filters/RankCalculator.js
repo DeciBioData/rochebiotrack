@@ -7,8 +7,8 @@ import RankCalculatorInput from "./RankCalculatorInput"
 class RankCalculator extends Component {
 
 	recalculatedWeight() {
-		this.props.sortData(this.props.companies, this.props.rankWeights)
-		this.props.updateData(this.props.companies, this.props.filters)
+		this.props.sortData(this.props.rankWeights)
+		this.props.updateData(this.props.filters)
 	}
 
 	render() {

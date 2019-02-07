@@ -11,12 +11,12 @@ class Slider extends Component {
 
 	onSlide(render, handle, value, un, percent) {
 		this.props.filterSliders(this.props.type, value)
-		this.props.updateData(this.props.companies, this.props.filters)
+		this.props.updateData(this.props.filters)
 	}
 
 	onChange(render, handle, value, un, percent) {
 		this.props.filterSliders(this.props.type, value)
-		this.props.updateData(this.props.companies, this.props.filters)
+		this.props.updateData(this.props.filters)
 	}
 
 	render() {

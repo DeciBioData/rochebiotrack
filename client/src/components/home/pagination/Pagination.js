@@ -6,7 +6,7 @@ class Pagination extends Component {
 
 	componentDidMount() {
     	//set new max page based on the new dataSets after filtering
-	    let lastPage = Math.ceil(this.props.dataLength / this.props.numberOfShowPerPage)
+	    let lastPage = Math.ceil(this.props.size / this.props.numberOfShowPerPage)
 	    if(lastPage <= 0) lastPage = 1
 
 	    let currentPage = this.props.currentPage
@@ -14,6 +14,21 @@ class Pagination extends Component {
 
 	    this.props.changePageNumber(currentPage)
 	  	this.props.changeLastPageNumber(lastPage)		
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(this.props.size !== nextProps.size) {
+	    	//set new max page based on the new dataSets after filtering
+		    let lastPage = Math.ceil(nextProps.size / this.props.numberOfShowPerPage)
+		    if(lastPage <= 0) lastPage = 1
+
+		    let currentPage = this.props.currentPage
+		    if(currentPage > lastPage) currentPage = lastPage
+
+		    this.props.changePageNumber(currentPage)
+		  	this.props.changeLastPageNumber(lastPage)
+		}
+
 	}
 
 	increasePageNumber() {
@@ -55,7 +70,6 @@ class Pagination extends Component {
 }
 
 const mapStateToProps = state => ({
-	dataLength: state.data.processedCompanies.length,
 	numberOfShowPerPage: state.pagination.numberOfShowPerPage,
 	currentPage: state.pagination.currentPage,
 	lastPage: state.pagination.lastPage

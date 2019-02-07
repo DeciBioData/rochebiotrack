@@ -2,12 +2,14 @@ import auth0 from 'auth0-js';
 
 class Auth {
   constructor() {
+    this.devLink = 'http://localhost:3000'
+    this.productionLink = 'https://biotrack-crunchbase.herokuapp.com'
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
       domain: 'decibio.auth0.com',
       audience: 'https://decibio.auth0.com/userinfo',
       clientID: 'dhGoPCGbk9Ys9KhvJsgFbPjiNfOHGTM5',
-      redirectUri: 'https://biotrack-crunchbase.herokuapp.com/callback',
+      redirectUri: `${this.productionLink}/callback`,
       responseType: 'id_token',
       scope: 'openid profile'
     });
@@ -58,7 +60,7 @@ class Auth {
   signOut() {
     // clear id token, profile, and expiration
     this.auth0.logout({
-      returnTo: 'https://biotrack-crunchbase.herokuapp.com',
+      returnTo: `${this.productionLink}`,
       clientID: 'dhGoPCGbk9Ys9KhvJsgFbPjiNfOHGTM5',
     });
   }

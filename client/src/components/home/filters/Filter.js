@@ -35,7 +35,7 @@ class Filter extends Component {
 	}
 
 	updateData() {
-		this.props.updateData(this.props.companies, this.props.filters)
+		this.props.updateData(this.props.filters)
 	}
 
 	handleSearchName(e) { 
@@ -50,10 +50,12 @@ class Filter extends Component {
 
 	handleDropdownOptions(type, item) {
 		this.props.filterDropdownOptions(type, item)
+		this.updateData()
 	}
 
 	clearDropdownOptions(type) {
 		this.props.clearDropdownOptions(type)
+		this.updateData()
 	}
 
 	fillColumn() {
@@ -65,11 +67,11 @@ class Filter extends Component {
 	}
 
 	render() {
-		const { processedCompanies, filters } = this.props
+		const { filters, size } = this.props
 		return (
 			<div className="side-nav with-shadow-light">
 				<div className="company-count">
-					<h6><strong>{processedCompanies.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong> results</h6>
+					<h6><strong>{size.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong> results</h6>
 				</div>
 				<div className="mr-auto company-search">
 					<FilterInstruction name="Organization Name" type="Organization" content="Search for the exact name of the company or organization"/>
@@ -178,12 +180,10 @@ class Filter extends Component {
 }
 
 const mapStateToProps = state => ({
-	companies: state.data.companies,
-	processedCompanies: state.data.processedCompanies,
 	columns: state.filter.columns,
 	filters: state.filter.filters
 })
 
 export default connect(mapStateToProps, { 
-	filterName, filterDescription, filterDropdownOptions, clearDropdownOptions, fillColumn, updateData 
+	filterName, filterDescription, filterDropdownOptions, clearDropdownOptions, fillColumn, updateData
 })(Filter)
