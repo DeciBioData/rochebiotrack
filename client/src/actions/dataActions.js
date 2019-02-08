@@ -63,7 +63,6 @@ export const sortData = (rankWeights) => dispatch => {
 }
 
 export const fetchCompany = (id) => dispatch => {
-  console.log(apiKey)
   fetch(`${apiPath}/${id}?user_key=${apiKey}`)
    .then(response => response.json())
    .then(dataSet => {
