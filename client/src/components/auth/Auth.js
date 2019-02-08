@@ -8,7 +8,7 @@ class Auth {
       // the following three lines MUST be updated
       domain: 'decibio.auth0.com',
       audience: 'https://decibio.auth0.com/userinfo',
-      clientID: 'dhGoPCGbk9Ys9KhvJsgFbPjiNfOHGTM5',
+      clientID: 'Ulr1N4yAY3xzKN6Jn8493PRYn5zbnFhw',
       redirectUri: `${this.productionLink}/callback`,
       responseType: 'id_token',
       scope: 'openid profile'
@@ -61,7 +61,7 @@ class Auth {
     // clear id token, profile, and expiration
     this.auth0.logout({
       returnTo: `${this.productionLink}`,
-      clientID: 'dhGoPCGbk9Ys9KhvJsgFbPjiNfOHGTM5',
+      clientID: 'Ulr1N4yAY3xzKN6Jn8493PRYn5zbnFhw',
     });
   }
 
