@@ -3,7 +3,7 @@ import auth0 from 'auth0-js';
 class Auth {
   constructor() {
     this.devLink = 'http://localhost:3000'
-    this.productionLink = 'https://biotrack-crunchbase.herokuapp.com'
+    this.productionLink = 'https://rochebiotrack.herokuapp.com'
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
       domain: 'decibio.auth0.com',
