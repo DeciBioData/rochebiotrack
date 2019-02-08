@@ -85,17 +85,22 @@ export const fetchCompany = (id) => dispatch => {
         const lastFunding = funding.length === 0 ? 'None' : funding[0].properties.announced_on ? funding[0].properties.announced_on.split('-')[0] : 'None'
         const reportedValuation = funding.length === 0 ? 'None' : funding[0].properties.pre_money_valuation_usd ? funding[0].properties.pre_money_valuation_usd : 'None'
 
-        const categories = categoriesList.map((category) => {
+        const list = categoriesList.map((category) => {
             let list = category.properties.category_groups
             let mySet = new Set(list)
             let array = Array.from(mySet)
             return array
         })
 
+        const categories = []
+        list.forEach((elm) => {
+          categories.push(...elm)
+        })
+
         let companyInfo = {
             id, name, imageURL, description, foundedOn, employeeCount, totalFunding, websites,
             location: location ? `${location.region}, ${location.country}` : '', news, funding, 
-            teams, categories, lastFunding, reportedValuation            
+            teams, categories: [...new Set(categories)], lastFunding, reportedValuation            
         }
 
         dispatch({
