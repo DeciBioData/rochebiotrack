@@ -26,12 +26,12 @@ class Layout extends Component {
 		return (
 			<div>
 				<div className="container-fluid row main">
-					<div className="col-md-3">
+					<div className="col-lg-3">
 						<div className="side-section">
 							<Filter size={this.props.companySize}/>
 						</div>
 					</div>
-					<div className="col-md-9">
+					<div className="col-lg-9">
 						<div className="data-table">
 							<TableInfo />
 							<Table companies={this.props.companies}/>
