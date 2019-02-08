@@ -9,7 +9,7 @@ class Auth {
       domain: 'decibio.auth0.com',
       audience: 'https://decibio.auth0.com/userinfo',
       clientID: 'dhGoPCGbk9Ys9KhvJsgFbPjiNfOHGTM5',
-      redirectUri: `${this.devLink}/callback`,
+      redirectUri: `${this.productionLink}/callback`,
       responseType: 'id_token',
       scope: 'openid profile'
     });
@@ -60,7 +60,7 @@ class Auth {
   signOut() {
     // clear id token, profile, and expiration
     this.auth0.logout({
-      returnTo: `${this.devLink}`,
+      returnTo: `${this.productionLink}`,
       clientID: 'dhGoPCGbk9Ys9KhvJsgFbPjiNfOHGTM5',
     });
   }
