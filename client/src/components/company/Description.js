@@ -11,13 +11,13 @@ const Description = ({companyInfo}) => {
 				<div className="categoryTags-section">
 					<ul className="tags-list">
 					{
-						companyInfo.categories.map((category, index) => {
+						companyInfo.categories ? Array.from(new Set(companyInfo.categories)).map((category, index) => {
 							return (
 								<li key={index} className="filterTags">
 									<span className="badge badge-light">{category}</span>
 								</li>
 							)
-						})
+						}) : null
 					}
 					</ul>
 				</div>
