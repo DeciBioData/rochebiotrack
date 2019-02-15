@@ -9,7 +9,7 @@ class Auth {
       domain: 'decibio.auth0.com',
       audience: 'https://decibio.auth0.com/userinfo',
       clientID: 'Ulr1N4yAY3xzKN6Jn8493PRYn5zbnFhw',
-      redirectUri: `${this.devLink}/callback`,
+      redirectUri: `${this.productionLink}/callback`,
       responseType: 'id_token',
       scope: 'openid profile'
     });
