@@ -40,13 +40,14 @@ class TableInfo extends Component {
 
 	clearFilters(name, type, content) {
 		const dropdownList = ["Employee Count", "Category", "Country", "Status", "Region"]
-		const sliderList = ["Total Funding", "Rounds", "Reported Valuation", "Year Founded", "Publication"]
+		const sliderList = ["Total Funding", "Rounds", "Reported Valuation", "Year Founded", "Publication Count"]
 
 		if(dropdownList.indexOf(name) !== -1) {
 			this.props.filterDropdownOptions(type, content)
 			document.getElementById(`${type}-${content}`).checked = false
 		}
 		else if(sliderList.indexOf(name) !== -1){
+
 			this.props.clearSliders(type)
 		}
 		this.props.updateData(this.props.filters)

@@ -35,6 +35,7 @@ export default function(state = initialState, action) {
 				...state,
 				companySize: action.payload
 			}
+			break
 		default:
 			return state
 			break

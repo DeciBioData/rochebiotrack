@@ -8,14 +8,29 @@ class SliderInput extends Component {
 
 	constructor(props) {
 		super(props)
+		this.translateName = {
+			"TotalFunding": "totalFunding",
+			"Rounds": "rounds",
+			"ReportedValuation": "reportedValuation",
+			"YearFounded": "yearFounded",
+			"Publication": "publicationCount"
+		}
 		this.state = {
 			isOpen: false,
-			value: props.type === 'Min' ? props.range[0] : props.range[1]
+			value: 0
 		}
 	}
 
+	componentDidMount() {
+		const range = this.props.filters[this.translateName[this.props.name]]
+		this.setState({ 
+			value: this.props.type === 'Min' ? range[0]: range[1] 
+		})
+	}
+
 	componentWillReceiveProps(nextProps) {
-		this.setState({ value: nextProps.type === 'Min' ? nextProps.range[0]: nextProps.range[1] })
+		const range = nextProps.filters[this.translateName[nextProps.name]]
+		this.setState({ value: nextProps.type === 'Min' ? range[0]: range[1] })
 	}
 
 	openPanel() {
@@ -23,14 +38,16 @@ class SliderInput extends Component {
 	}
 
 	setValue(e) {
-		let value = e.target.value
+		const range = this.props.filters[this.translateName[this.props.name]]
+		let value = parseInt(e.target.value)
+		if(isNaN(value)) value = 0
 		value = value < this.props.min ? this.props.min : value
 		value = value > this.props.max ? this.props.max : value
 		if(this.props.type === 'Min') {
-			this.props.filterSliders(this.props.name, [value, this.props.range[1]])
+			this.props.filterSliders(this.props.name, [value, range[1]])
 		}
 		else {
-			this.props.filterSliders(this.props.name, [this.props.range[0], value])
+			this.props.filterSliders(this.props.name, [range[0], value])
 		}
 		this.props.updateData(this.props.filters)
 	}
